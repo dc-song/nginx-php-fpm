@@ -1,9 +1,9 @@
 FROM richarvey/nginx-php-fpm:1.5.7
 LABEL maintainer="songchaots <songchaots@163.com>"
 
-ENV LANG=C.UTF-8
+ENV LANG=zh_CN.UTF-8
 
-RUN apk add --virtual --no-cache imagemagick imagemagick-dev autoconf gcc musl-dev make tzdata && \
+RUN apk add --virtual --no-cache imagemagick imagemagick-dev autoconf gcc musl-dev make tzdata vim && \
 pecl install redis-4.0.1 && \
 pecl install imagick && \
 docker-php-ext-enable imagick redis && \
@@ -50,4 +50,5 @@ RUN ALPINE_GLIBC_BASE_URL="https://github.com/sgerrand/alpine-pkg-glibc/releases
     rm \
         "$ALPINE_GLIBC_BASE_PACKAGE_FILENAME" \
         "$ALPINE_GLIBC_BIN_PACKAGE_FILENAME" \
-        "$ALPINE_GLIBC_I18N_PACKAGE_FILENAME"
+        "$ALPINE_GLIBC_I18N_PACKAGE_FILENAME" && \
+    sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories
