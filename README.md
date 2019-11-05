@@ -8,3 +8,5 @@
 | Nginx Version | 1.14.0 | 
 | PHP Version | 7.2.10 | 
 
+## Added vim installation and Chinese garbled problem handling
+Note that locale is not available in alpine linux, use /usr/glibc-compat/bin/locale
