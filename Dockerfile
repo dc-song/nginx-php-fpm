@@ -54,3 +54,13 @@ RUN ALPINE_GLIBC_BASE_URL="https://github.com/sgerrand/alpine-pkg-glibc/releases
     sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories
 
 COPY ./nginx.conf /etc/nginx
+
+#rdkafka扩展安装
+
+RUN apk add --no-cache librdkafka-dev && \
+    git clone https://github.com/arnaud-lb/php-rdkafka.git && \
+    cd php-rdkafka && phpize && \
+    ./configure --with-php-config=/usr/local/bin/php-config && \
+    make && make install && \
+    echo "extension=rdkafka.so" >> /usr/local/etc/php/conf.d/docker-php-ext-rdkafka.ini && \
+    cd .. && rm -rf php-rdkafka
